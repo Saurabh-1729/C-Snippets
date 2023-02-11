@@ -1,0 +1,10 @@
+ll power(ll base, ll exponent)
+{
+    ll result = 1;
+    while (exponent != 0)
+    {
+        result *= base;
+        --exponent;
+    }
+    return result;
+}
