@@ -1,0 +1,15 @@
+ll calculate(ll p, ll q)
+{
+    ll m = 1e9 + 7, expo;
+    expo = m - 2;
+    while (expo)
+    {
+        if (expo & 1)
+        {
+            p = (p * q) % m;
+        }
+        q = (q * q) % m;
+        expo >>= 1;
+    }
+    return p;
+}
