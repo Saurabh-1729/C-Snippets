@@ -26,8 +26,9 @@ void insert(TrieNode *root, string str)
             temp->childnode[ch - 'a'] = newnode;
         }
         temp = temp->childnode[ch - 'a'];
+        temp->wordend += 1;
     }
-    temp->wordend = 1;
+    // temp->wordend = 1;
 }
 
 bool search(TrieNode *root, string str)
@@ -51,17 +52,27 @@ void del(TrieNode* root, string str){
     temp->wordend = 0;
 }
 
+int prefcnt(TrieNode* root, string str){
+    TrieNode* temp = root;
+    for(auto ch: str){
+        if(temp->childnode[ch - 'a'] == NULL) return 0;
+        temp = temp->childnode[ch - 'a'];
+    }
+    return temp->wordend;
+}
+
 int main()
 {
 
     TrieNode *root = new TrieNode();
-    vector<string> inputStrings = {"and", "ant", "do", "geek", "dad", "ball"};
+    vector<string> inputStrings = {"aand", "aandd", "aadd", "aannd", "aad", "a"};
     for (int i = 0; i < inputStrings.size(); i++)
         insert(root, inputStrings[i]);
-    if(search(root, "and")) cout<<"YES"<<endl;
-    else cout<<"NO"<<endl;
-    del(root, "and");
-    if(search(root, "and")) cout<<"YES"<<endl;
-    else cout<<"NO"<<endl;
+    // if(search(root, "and")) cout<<"YES"<<endl;
+    // else cout<<"NO"<<endl;
+    // del(root, "and");
+    // if(search(root, "and")) cout<<"YES"<<endl;
+    // else cout<<"NO"<<endl;
+    cout<<prefcnt(root, "aan")<<endl;
     return 0;
 }
