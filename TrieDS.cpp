@@ -26,9 +26,9 @@ void insert(TrieNode *root, string str)
             temp->childnode[ch - 'a'] = newnode;
         }
         temp = temp->childnode[ch - 'a'];
-        temp->wordend += 1;
+        temp->wordend += 1; // This is for Prefix count
     }
-    // temp->wordend = 1;
+    // temp->wordend = 1; // This is for search and delete operation
 }
 
 bool search(TrieNode *root, string str)
