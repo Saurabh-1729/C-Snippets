@@ -1,0 +1,27 @@
+//In order to calculate total numbers from 1 to mid that are divisible by any number from labels
+
+ll countGlowing(const vector<int>& labels, ll mid) {
+    int n = labels.size();
+    ll count = 0;
+    for (int mask = 1; mask < (1 << n); ++mask) {
+        ll curr_lcm = 1;
+        int bits = 0;
+        bool overflow = false;
+        for (int i = 0; i < n; ++i) {
+            if (mask & (1 << i)) {
+                curr_lcm = (curr_lcm / __gcd(curr_lcm, 1LL * labels[i])) * labels[i];
+                if (curr_lcm > mid) {
+                    overflow = true;
+                    break;
+                }
+                ++bits;
+            }
+        }
+        if (overflow) continue;
+        if (bits % 2 == 1)
+            count += mid / curr_lcm;
+        else
+            count -= mid / curr_lcm;
+    }
+    return count;
+}
