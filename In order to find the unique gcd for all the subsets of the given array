@@ -1,0 +1,28 @@
+/*
+In order to find the unique gcd for all the subsets of the given array
+*/
+
+int differentGCDSubsequence(vector<int> &arr) {
+    // Write your code here.
+    int maxm = *max_element(arr.begin(), arr.end());
+    unordered_map<int,int> mp;
+    for(auto val: arr) mp[val]++;
+    int curr_gcd, ans = 0;
+    for(int i = 1; i <= maxm; i++){
+        curr_gcd = 0;
+        int val = i;
+        while(val <= maxm){
+            if(mp.find(val) == mp.end()) {
+                val += i;
+                continue;
+            }
+            curr_gcd = __gcd(curr_gcd, val);
+            if(curr_gcd == i){
+                ans++;
+                break;
+            }
+            val += i;
+        }
+    }
+    return ans;
+}
