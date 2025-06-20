@@ -1,0 +1,51 @@
+/*
+Unlimited Supply Item Combinations with Maximum Capacity Constraint
+You are given:
+
+An integer n, representing the number of unique items.
+
+An integer k, representing the maximum number of items that can be picked in total.
+
+Each item is available in unlimited quantity (i.e., you can pick any number of each item, including zero).
+
+Your task is to compute the total number of different combinations of items you can pick such that:
+
+The total number of items picked is at most k.
+
+The order of selection does not matter (i.e., combinations, not permutations).
+*/
+
+
+typedef long long ll;
+
+const int MOD = 1e9 + 7;
+const int MAX = 2e5 + 10;
+
+ll fact[MAX], invFact[MAX];
+
+// Binary exponentiation
+ll power(ll a, ll b) {
+    ll res = 1;
+    while(b > 0) {
+        if(b % 2 == 1)
+            res = res * a % MOD;
+        a = a * a % MOD;
+        b /= 2;
+    }
+    return res;
+}
+
+// Precompute factorials and inverse factorials
+void precomputeFactorials() {
+    fact[0] = invFact[0] = 1;
+    for(int i = 1; i < MAX; ++i) {
+        fact[i] = fact[i - 1] * i % MOD;
+        invFact[i] = power(fact[i], MOD - 2);
+    }
+}
+
+// nCk modulo MOD
+ll nCk(int n, int k) {
+    if(k < 0 || k > n) return 0;
+    return fact[n] * invFact[k] % MOD * invFact[n - k] % MOD;
+}
