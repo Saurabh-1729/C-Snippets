@@ -1,4 +1,4 @@
-//In order to calculate total numbers from 1 to mid that are divisible by any number from labels
+//In order to calculate total numbers from 1 to mid that are divisible by any number from a given array
 
 ll countGlowing(const vector<int>& labels, ll mid) {
     int n = labels.size();
